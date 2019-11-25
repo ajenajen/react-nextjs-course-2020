@@ -4,6 +4,8 @@ import { useMember } from '@lib/auth'
 import withPage from '@lib/page/withPage'
 import colors from '@features/_ui/colors'
 import AlbumList from './AlbumList'
+import * as AlbumService from '@features/album/services'
+import { Fetch } from '@lib/api'
 
 HomePage.defaultProps = {
   albums: [
@@ -28,19 +30,25 @@ function HomePage({ albums }) {
   }
 
   return (
-    <Flex flexWrap="wrap" css={{ padding: '60px 120px' }}>
-      <Box width={1}>
-        <h1
-          css={{
-            color: colors.link,
-            fontSize: '2em',
-            padding: '50px 10px 10px',
-          }}>
-          New Releases
-        </h1>
-      </Box>
-      <AlbumList albums={albums} />
-    </Flex>
+    <Fetch service={() => AlbumService.getNewReleases({ token })}>
+      {({ data }) => {
+        return (
+          <Flex flexWrap="wrap" css={{ padding: '60px 120px' }}>
+            <Box width={1}>
+              <h1
+                css={{
+                  color: colors.link,
+                  fontSize: '2em',
+                  padding: '50px 10px 10px',
+                }}>
+                New Releases
+              </h1>
+            </Box>
+            <AlbumList albums={data.albums.items} />
+          </Flex>
+        )
+      }}
+    </Fetch>
   )
 }
 
