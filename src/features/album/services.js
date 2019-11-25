@@ -19,7 +19,7 @@ export function getAlbumById(id, { token }) {
       response.album_type,
       ' ',
       response.total_tracks,
-      ' Track',
+      ' Tracks',
     ]
 
     response.tracks.items = response.tracks.items.map(function(track) {
