@@ -10,15 +10,15 @@ export default inject('playerStore')(Player)
 function Player({ playerStore }) {
   // const playerStore = new PlayerStore()
   const { url, playing } = playerStore.nowPlaying
-  const setPlayerInst = useRef(null)
+  const playerInst = useRef(null)
 
   useEffect(() => {
-    playerStore.handleSeekBar(setPlayerInst.current)
+    playerStore.setPlayerInst(playerInst.current)
   }, [])
 
   return (
     <ReactPlayer
-      ref={setPlayerInst}
+      ref={playerInst}
       css={{ display: 'none' }}
       playing={playing}
       url={url}

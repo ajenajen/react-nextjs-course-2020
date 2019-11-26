@@ -23,7 +23,7 @@ export default class PlayerStore {
   queueList = []
 
   @observable
-  progressBarInst = null
+  playerInst = null
 
   @action
   play(track) {
@@ -63,12 +63,12 @@ export default class PlayerStore {
   @action
   handleClickBar(progresstime) {
     this.progressBar.progress = progresstime
-    this.progressBarInst.seekTo(progresstime)
+    this.playerInst.seekTo(progresstime)
     // console.log('handleClickBar', progresstime)
   }
 
   @action
-  handleSeekBar(playerInst) {
-    this.progressBarInst = playerInst
+  setPlayerInst(playerInst) {
+    this.playerInst = playerInst
   }
 }
