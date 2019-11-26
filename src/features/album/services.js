@@ -28,6 +28,8 @@ export function getAlbumById(id, { token }) {
       track.album = track.name
       track.previewUrl = track.preview_url
 
+      track.image = response.images[0].url
+
       return track
     })
 

@@ -17,6 +17,7 @@ export function getPlaylistById(id, { token }) {
       item.album = item.track.album.name
       item.name = item.track.name
       item.previewUrl = item.track.preview_url
+      item.image = item.track.album.images[0].url
 
       return item
     })

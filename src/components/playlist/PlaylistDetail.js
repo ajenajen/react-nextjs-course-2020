@@ -63,7 +63,7 @@ function PlaylistDetailPage({ data }) {
   return (
     <Fetch service={() => PlaylistService.getPlaylistById(query.id, { token })}>
       {({ data }) => {
-        console.log(data.tracks.items)
+        // console.log(data.tracks.items)
         return (
           <Flex flexWrap="wrap" css={{ padding: '60px 120px' }}>
             <Box width={1 / 3}>
