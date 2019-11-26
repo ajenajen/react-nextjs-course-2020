@@ -38,6 +38,11 @@ export default class PlayerStore {
   }
 
   @action
+  addtoQueue(item) {
+    console.log('add to queue :', item)
+  }
+
+  @action
   updateProgressBar(song) {
     const { playedSeconds, played, loadedSeconds } = song
 

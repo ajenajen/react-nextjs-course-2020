@@ -86,11 +86,16 @@ function SongListItem({ track, playerStore }) {
               height: '30px',
               cursor: 'pointer',
             }}
-            onClick={() => {}}>
+            onClick={() => {
+              playerStore.addtoQueue(track)
+            }}>
             <Icon
               icon="plus-circle"
               css={{
                 color: colors.link,
+                '&:hover': {
+                  color: 'green',
+                },
               }}
             />
           </button>
