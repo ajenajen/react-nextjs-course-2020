@@ -19,6 +19,12 @@ export default class PlayerStore {
     duration: '0:30',
   }
 
+  @observable
+  queueList = []
+
+  @observable
+  progressBarInst = null
+
   @action
   play(track) {
     const { previewUrl, name, artist, image } = track
@@ -39,7 +45,8 @@ export default class PlayerStore {
 
   @action
   addtoQueue(item) {
-    console.log('add to queue :', item)
+    this.queueList.push(item)
+    // console.log('Queue: ', this.queueList)
   }
 
   @action
@@ -51,5 +58,17 @@ export default class PlayerStore {
     this.progressBar.duration = convertSecondsToMinutes(loadedSeconds)
 
     // console.log('onProgress', song)
+  }
+
+  @action
+  handleClickBar(progresstime) {
+    this.progressBar.progress = progresstime
+    this.progressBarInst.seekTo(progresstime)
+    // console.log('handleClickBar', progresstime)
+  }
+
+  @action
+  handleSeekBar(playerInst) {
+    this.progressBarInst = playerInst
   }
 }

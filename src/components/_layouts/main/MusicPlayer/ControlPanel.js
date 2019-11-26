@@ -10,7 +10,7 @@ export default inject('playerStore')(ControlPanel)
 function ButtonControl({ icon, circle = false, active = false, onClick }) {
   const css = {
     background: 'transparent',
-    padding: '7px 8px 11px 10px',
+    padding: '7px 8px 11px 8px',
     margin: '0 10px',
     width: '34px',
     height: '34px',

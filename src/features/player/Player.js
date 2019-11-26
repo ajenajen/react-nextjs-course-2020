@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import ReactPlayer from 'react-player'
 
 // import PlayerStore from '@features/player/store'
@@ -10,9 +10,15 @@ export default inject('playerStore')(Player)
 function Player({ playerStore }) {
   // const playerStore = new PlayerStore()
   const { url, playing } = playerStore.nowPlaying
+  const setPlayerInst = useRef(null)
+
+  useEffect(() => {
+    playerStore.handleSeekBar(setPlayerInst.current)
+  }, [])
 
   return (
     <ReactPlayer
+      ref={setPlayerInst}
       css={{ display: 'none' }}
       playing={playing}
       url={url}
