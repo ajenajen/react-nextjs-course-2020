@@ -19,6 +19,9 @@ export default class PlayerStore {
     duration: '0:30',
   }
 
+  @observable
+  queueList = []
+
   @action
   play(track) {
     const { previewUrl, name, artist, image } = track
@@ -39,7 +42,9 @@ export default class PlayerStore {
 
   @action
   addtoQueue(item) {
+    this.queueList.push(item)
     console.log('add to queue :', item)
+    console.log('Queue: ', this.queueList)
   }
 
   @action
