@@ -1,5 +1,6 @@
 import { observable, action } from 'mobx'
 import { convertSecondsToMinutes } from '@features/player/utilities'
+import { useRef } from 'react'
 
 export default class PlayerStore {
   @observable
@@ -22,6 +23,9 @@ export default class PlayerStore {
   @observable
   queueList = []
 
+  @observable
+  progressBarInst = useRef(null)
+
   @action
   play(track) {
     const { previewUrl, name, artist, image } = track
@@ -43,8 +47,8 @@ export default class PlayerStore {
   @action
   addtoQueue(item) {
     this.queueList.push(item)
-    console.log('add to queue :', item)
-    console.log('Queue: ', this.queueList)
+    // console.log('add to queue :', item)
+    // console.log('Queue: ', this.queueList)
   }
 
   @action
@@ -56,5 +60,12 @@ export default class PlayerStore {
     this.progressBar.duration = convertSecondsToMinutes(loadedSeconds)
 
     // console.log('onProgress', song)
+  }
+
+  @action
+  handleBar(progresstime) {
+    this.progressBar.progress = progresstime
+    this.progressBarInst.current.seekTo(progresstime)
+    // console.log('handleClickBar', progresstime)
   }
 }

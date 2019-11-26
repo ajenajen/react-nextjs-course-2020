@@ -13,6 +13,7 @@ function Player({ playerStore }) {
 
   return (
     <ReactPlayer
+      ref={playerStore.progressBarInst}
       css={{ display: 'none' }}
       playing={playing}
       url={url}
@@ -20,9 +21,6 @@ function Player({ playerStore }) {
       volume={0.8}
       muted={false}
       onProgress={data => playerStore.updateProgressBar(data)}
-      onSeek={data => {
-        console.log('onSeek' + data)
-      }}
       onEnded={() => {
         console.log('onEnded')
       }}
