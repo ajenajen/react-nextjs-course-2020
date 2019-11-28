@@ -10,6 +10,7 @@ export default inject('playerStore')(Player)
 function Player({ playerStore }) {
   // const playerStore = new PlayerStore()
   const { url, playing } = playerStore.nowPlaying
+  const { volume } = playerStore
   const playerInst = useRef(null)
 
   useEffect(() => {
@@ -23,7 +24,7 @@ function Player({ playerStore }) {
       playing={playing}
       url={url}
       progressInterval={50}
-      volume={0.8}
+      volume={volume.level}
       muted={false}
       onProgress={data => playerStore.updateProgressBar(data)}
       onEnded={() => {
