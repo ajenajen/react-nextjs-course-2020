@@ -4,8 +4,8 @@ import Link from '@link'
 import { getStatic } from '@lib/static'
 import colors from '@features/_ui/colors'
 import { useMember } from '@lib/auth'
-import { inject } from '@lib/store'
 
+import { inject } from '@lib/store'
 export default inject('userStore')(Account)
 
 Account.defaultProps = {
