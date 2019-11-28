@@ -86,7 +86,10 @@ export default class PlayerStore {
       level: parseFloat(level.target.value),
       prelevel: parseFloat(level.target.value),
     }
-
     // console.log('handleSoundBar', level)
+  }
+  @action
+  toggleMuted() {
+    this.volume.muted = !this.volume.muted
   }
 }

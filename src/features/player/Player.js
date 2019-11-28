@@ -25,7 +25,7 @@ function Player({ playerStore }) {
       url={url}
       progressInterval={50}
       volume={volume.level}
-      muted={false}
+      muted={volume.muted}
       onProgress={data => playerStore.updateProgressBar(data)}
       onEnded={() => {
         console.log('onEnded')

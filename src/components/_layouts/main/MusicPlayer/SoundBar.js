@@ -59,7 +59,9 @@ function SoundBar({ playerStore }) {
           <Box>
             <ButtonControl
               icon={volume.muted ? 'volume-mute' : 'volume-up'}
-              onClick={() => {}}
+              onClick={() => {
+                playerStore.toggleMuted()
+              }}
             />
           </Box>
           <Box
