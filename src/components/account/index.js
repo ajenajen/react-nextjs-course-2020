@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Flex, Box } from '@grid'
-import Link from '@link'
-import { getStatic } from '@lib/static'
+import { flowRight as compose } from 'lodash'
+
 import colors from '@features/_ui/colors'
 
 import withPage from '@lib/page/withPage'
@@ -10,12 +10,10 @@ import { signOut } from '@features/_auth'
 
 import { inject } from '@lib/store'
 
-export default inject('userStore')(withPage({ restricted: true })(AccountPage))
-
-AccountPage.defaultProps = {
-  name: 'Anonymous',
-  image: getStatic('/images/dummy-avatar-300x300.jpg'),
-}
+export default compose(
+  withPage({ restricted: true }),
+  inject('userStore'),
+)(AccountPage)
 
 function AccountPage({ userStore }) {
   const { token, isAuthenticated } = useMember()
@@ -31,7 +29,6 @@ function AccountPage({ userStore }) {
   }
 
   const { image, name } = userStore.profile
-  // const { image, name } = props
 
   if (!isAuthenticated) {
     return null
