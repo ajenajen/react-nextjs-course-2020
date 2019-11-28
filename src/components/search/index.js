@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Flex, Box } from '@grid'
 import { useMember } from '@lib/auth'
 import withPage from '@lib/page/withPage'
 import SearchResults from './SearchResults'
+import NoResult from './NoResult'
+
+import * as SearchService from '@features/search/services'
+import { Fetch } from '@lib/api'
 
 SearchPage.defaultProps = {
   data: {
@@ -35,35 +39,63 @@ SearchPage.defaultProps = {
 
 function SearchPage({ data }) {
   const { token } = useMember()
+  const [keyword, setKeyword] = useState('')
+
+  const keywordChange = function(keyword) {
+    setKeyword(keyword.target.value)
+  }
 
   if (token === null) {
     return null
   }
 
   return (
-    <Flex flexWrap="wrap" css={{ padding: '60px 120px' }}>
-      <Box width={1}>
-        <input
-          type="text"
-          value="blackpink"
-          placeholder="Search for artists, albums or playlists..."
-          css={{
-            padding: '15px 20px',
-            borderRadius: '40px',
-            border: 'none',
-            width: '500px',
-          }}
-          onChange={() => {}}
-        />
-      </Box>
+    <div>
+      <Flex flexWrap="wrap" css={{ padding: '60px 120px' }}>
+        <Box width={1}>
+          <input
+            type="text"
+            value={keyword}
+            placeholder="Search for artists, albums or playlists..."
+            css={{
+              padding: '15px 20px',
+              borderRadius: '40px',
+              border: 'none',
+              width: '500px',
+            }}
+            onChange={keywordChange}
+          />
+        </Box>
+      </Flex>
+      <Fetch service={() => SearchService.getSearchItem({ keyword, token })}>
+        {({ data }) => {
+          console.log(data.albums.length)
+          return (
+            <Flex flexWrap="wrap" css={{ padding: '60px 120px' }}>
+              {data.albums.length > 0 ? (
+                <SearchResults
+                  title="Albums"
+                  data={data.albums}
+                  route="album-detail"
+                />
+              ) : null}
 
-      <SearchResults title="Albums" data={data.albums} route="album-detail" />
-      <SearchResults
-        title="Playlists"
-        data={data.playlists}
-        route="playlist-detail"
-      />
-    </Flex>
+              {data.playlists.length > 0 ? (
+                <SearchResults
+                  title="Playlists"
+                  data={data.playlists}
+                  route="playlist-detail"
+                />
+              ) : null}
+
+              {data.albums.length == 0 && data.playlists.length == 0 ? (
+                <NoResult title="No Result" />
+              ) : null}
+            </Flex>
+          )
+        }}
+      </Fetch>
+    </div>
   )
 }
 

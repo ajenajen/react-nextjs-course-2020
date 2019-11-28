@@ -20,10 +20,10 @@ export default class PlayerStore {
   }
 
   @observable
-  queueList = []
+  playerInst = null
 
   @observable
-  playerInst = null
+  queueList = []
 
   @action
   play(track) {
