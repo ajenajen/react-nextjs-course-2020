@@ -23,6 +23,13 @@ export default class PlayerStore {
   playerInst = null
 
   @observable
+  volume = {
+    muted: false,
+    level: 0.8,
+    prelevel: 0.8,
+  }
+
+  @observable
   queueList = []
 
   @action
@@ -70,5 +77,19 @@ export default class PlayerStore {
   @action
   setPlayerInst(playerInst) {
     this.playerInst = playerInst
+  }
+
+  @action
+  handleSoundBar(level) {
+    this.volume = {
+      muted: false,
+      level: parseFloat(level.target.value),
+      prelevel: parseFloat(level.target.value),
+    }
+    // console.log('handleSoundBar', level)
+  }
+  @action
+  toggleMuted() {
+    this.volume.muted = !this.volume.muted
   }
 }

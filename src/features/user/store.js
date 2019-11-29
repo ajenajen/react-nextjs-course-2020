@@ -10,6 +10,7 @@ export default class UserStore {
     UserService.getUserProfile({ token }).then(data => {
       runInAction(() => {
         this.profile = data
+        // console.log('profile :', this.profile)
       })
     })
   }
