@@ -67,7 +67,7 @@ function PlaylistDetailPage({ data }) {
         return (
           <Flex flexWrap="wrap" css={{ padding: '60px 120px' }}>
             <Box width={1 / 3}>
-              <DetailPageHeader data={data} />
+              <DetailPageHeader data={data} tracks={data.tracks.items} />
             </Box>
             <Box width={2 / 3}>
               <SongList tracks={data.tracks.items} />

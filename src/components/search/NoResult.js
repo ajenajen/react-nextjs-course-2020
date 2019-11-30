@@ -4,7 +4,7 @@ import { Flex, Box } from '@grid'
 
 import colors from '@features/_ui/colors'
 
-export default function ResultRow({ title }) {
+export default function ResultRow({ title, keyword }) {
   return (
     <Fragment>
       <Box width={1}>
@@ -14,7 +14,8 @@ export default function ResultRow({ title }) {
             fontSize: '1.8em',
             padding: '50px 10px 0px',
           }}>
-          {title}
+          {title} : <br />
+          <span css={{ fontSize: '0.5em' }}> {keyword}</span>
         </h1>
       </Box>
     </Fragment>

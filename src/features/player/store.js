@@ -5,11 +5,12 @@ export default class PlayerStore {
   @observable
   nowPlaying = {
     playing: false,
-    title: 'ไกลแค่ไหน คือ ใกล้',
-    subTitle: 'Getsunova',
-    image: 'https://i.scdn.co/image/ab67616d0000b273e76e64aa449965dd5e439c53',
+    title: 'Mean It',
+    subTitle: 'Lauv,LANY',
+    image: 'https://i.scdn.co/image/cf9073efe211bedef7a447fad6d50566f81287b5',
     url:
-      'https://p.scdn.co/mp3-preview/f0521c21357ae522872b59cf4dd082ad65880fe8?cid=e4abb1ea8fdf4926a463960abd146fcb',
+      'https://p.scdn.co/mp3-preview/03c8dc4ff8254b9ef20949f6562d5e37941bdb06?cid=f73e4bb6a4bc469e8731b79fbbe5eafd',
+    order: 0,
   }
 
   @observable
@@ -32,17 +33,24 @@ export default class PlayerStore {
   @observable
   queueList = []
 
+  @observable
+  currentTrack = 0
+
+  @observable
+  isRepeat = false
+
   @action
   play(track) {
-    const { previewUrl, name, artist, image } = track
+    const { previewUrl, name, artist, image, order } = track
 
     this.nowPlaying.playing = true
     this.nowPlaying.title = name
     this.nowPlaying.subTitle = artist
     this.nowPlaying.image = image
     this.nowPlaying.url = previewUrl
+    this.nowPlaying.order = order
 
-    // console.log('Now Playing:', this.nowPlaying.title)
+    // console.log('Now Playing order: ', this.nowPlaying.order)
   }
 
   @action
@@ -54,6 +62,17 @@ export default class PlayerStore {
   addtoQueue(item) {
     this.queueList.push(item)
     // console.log('Queue: ', this.queueList)
+  }
+
+  @action
+  addListToQueue(playlist) {
+    playlist.map((track, i) => this.queueList.push(track))
+    // console.log('addListToQueue')
+  }
+
+  @action
+  nextTrack(currentTrack) {
+    console.log('next: ', currentTrack)
   }
 
   @action
@@ -91,5 +110,11 @@ export default class PlayerStore {
   @action
   toggleMuted() {
     this.volume.muted = !this.volume.muted
+  }
+
+  @action
+  setRepeat() {
+    this.isRepeat = !this.isRepeat
+    console.log('toggle repeat')
   }
 }

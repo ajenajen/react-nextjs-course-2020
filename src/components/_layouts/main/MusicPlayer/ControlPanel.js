@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Flex, Box } from '@grid'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import colors from '@features/_ui/colors'
@@ -34,13 +34,21 @@ function ButtonControl({ icon, circle = false, active = false, onClick }) {
 }
 
 function ControlPanel({ playerStore }) {
+  // const currentTrack = playerStore.nowPlaying.order
+  const [currentTrack, setCurrentTrack] = useState(playerStore.nowPlaying.order)
   return (
     <Flex>
       <Box>
         <ButtonControl icon="random" active={false} onClick={() => {}} />
       </Box>
       <Box>
-        <ButtonControl icon="step-backward" onClick={() => {}} />
+        <ButtonControl
+          icon="step-backward"
+          onClick={() => {
+            setCurrentTrack(currentTrack - 1)
+            console.log('now playing track :', currentTrack)
+          }}
+        />
       </Box>
       <Box>
         <ButtonControl
@@ -52,10 +60,23 @@ function ControlPanel({ playerStore }) {
         />
       </Box>
       <Box>
-        <ButtonControl icon="step-forward" onClick={() => {}} />
+        <ButtonControl
+          icon="step-forward"
+          onClick={() => {
+            setCurrentTrack(currentTrack + 1)
+            console.log('now playing track :', currentTrack)
+            // playerStore.nextTrack(currentTrack)
+          }}
+        />
       </Box>
       <Box>
-        <ButtonControl icon="redo-alt" active={false} onClick={() => {}} />
+        <ButtonControl
+          icon="redo-alt"
+          active={playerStore.isRepeat}
+          onClick={() => {
+            playerStore.setRepeat()
+          }}
+        />
       </Box>
     </Flex>
   )
