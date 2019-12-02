@@ -9,6 +9,9 @@ export function getSearchItem({ keyword, token }) {
     for (let key in response) {
       if (response.hasOwnProperty(key)) {
         data[key] = response[key].items.map(resp => {
+          if (resp.images.length === 0) {
+            resp.images = [{ url: '' }]
+          }
           return resp
         })
       }

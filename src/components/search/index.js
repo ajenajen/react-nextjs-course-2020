@@ -69,7 +69,7 @@ function SearchPage({ data }) {
       </Flex>
       <Fetch service={() => SearchService.getSearchItem({ keyword, token })}>
         {({ data }) => {
-          console.log(data.albums.length)
+          // console.log('data.albums.length', data.albums.length)
           return (
             <Flex flexWrap="wrap" css={{ padding: '60px 120px' }}>
               {data.albums.length > 0 ? (
@@ -89,7 +89,7 @@ function SearchPage({ data }) {
               ) : null}
 
               {data.albums.length == 0 && data.playlists.length == 0 ? (
-                <NoResult title="No Result" />
+                <NoResult title="No Result of" keyword={keyword} />
               ) : null}
             </Flex>
           )
