@@ -16,7 +16,7 @@ export default class PlayerStore {
   @observable
   progressBar = {
     timeElapsed: '0:00',
-    progress: 0.2,
+    progress: 0.0,
     duration: '0:30',
   }
 
@@ -67,12 +67,17 @@ export default class PlayerStore {
   @action
   addListToQueue(playlist) {
     playlist.map((track, i) => this.queueList.push(track))
+    this.play(this.queueList[0])
     // console.log('addListToQueue')
   }
 
   @action
-  nextTrack(currentTrack) {
-    console.log('next: ', currentTrack)
+  nextTrack(currentQueue) {
+    const nextQueue = currentQueue + 1
+    const nextTrack = this.queueList.filter(track => track.order === nextQueue)
+    this.play(nextTrack[0])
+    // this.play(this.queueList[nextQueue])
+    // console.log('next > now playing track :', this.queueList[nextQueue])
   }
 
   @action
