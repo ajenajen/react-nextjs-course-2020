@@ -59,24 +59,37 @@ export default class PlayerStore {
   }
 
   @action
-  addtoQueue(item) {
-    this.queueList.push(item)
-    // console.log('Queue: ', this.queueList)
+  addtoQueue(track) {
+    track.order = this.queueList.length
+    const addedTrack = this.queueList.find(item => {
+      return item.id == track.id // return true : false
+    })
+    if (addedTrack !== undefined) {
+      return false
+    }
+    this.queueList.push(track)
   }
 
   @action
   addListToQueue(playlist) {
-    playlist.map((track, i) => this.queueList.push(track))
+    this.queueList = []
+
+    playlist.map((track, index) => {
+      track.order = index
+      this.queueList.push(track)
+    })
+
     this.play(this.queueList[0])
-    // console.log('addListToQueue')
   }
 
   @action
   nextTrack(currentQueue) {
     const nextQueue = currentQueue + 1
     const nextTrack = this.queueList.filter(track => track.order === nextQueue)
-    this.play(nextTrack[0])
-    // this.play(this.queueList[nextQueue])
+
+    if (nextQueue !== this.queueList.length) {
+      this.play(nextTrack[0])
+    }
     // console.log('next > now playing track :', this.queueList[nextQueue])
   }
 
@@ -84,7 +97,9 @@ export default class PlayerStore {
   prevTrack(currentQueue) {
     const prevQueue = currentQueue - 1
     const prevTrack = this.queueList.filter(track => track.order === prevQueue)
-    this.play(prevTrack[0])
+    if (prevQueue >= 0) {
+      this.play(prevTrack[0])
+    }
   }
 
   @action
