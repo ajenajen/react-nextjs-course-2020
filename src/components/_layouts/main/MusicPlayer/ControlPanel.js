@@ -47,8 +47,7 @@ function ControlPanel({ playerStore }) {
         <ButtonControl
           icon="step-backward"
           onClick={() => {
-            // setCurrentTrack(currentTrack - 1)
-            // console.log('now playing track :', currentTrack)
+            playerStore.prevTrack(order)
           }}
         />
       </Box>
@@ -65,9 +64,6 @@ function ControlPanel({ playerStore }) {
         <ButtonControl
           icon="step-forward"
           onClick={() => {
-            // setCurrentTrack(currentTrack + 1)
-            // console.log('now playing track :', currentTrack)
-            // console.log(order)
             playerStore.nextTrack(order)
           }}
         />

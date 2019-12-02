@@ -81,6 +81,13 @@ export default class PlayerStore {
   }
 
   @action
+  prevTrack(currentQueue) {
+    const prevQueue = currentQueue - 1
+    const prevTrack = this.queueList.filter(track => track.order === prevQueue)
+    this.play(prevTrack[0])
+  }
+
+  @action
   updateProgressBar(song) {
     const { playedSeconds, played, loadedSeconds } = song
 
